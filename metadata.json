@@ -1,0 +1,6 @@
+{
+  "name": "SevaBot – AI Government Scheme Assistant",
+  "description": "An AI-powered chatbot helping citizens discover government welfare schemes, subsidies, and public services in India.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

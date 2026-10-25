@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with basic information and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique Firebase Auth user ID" },
+        "email": { "type": "string", "description": "The user's email address" },
+        "displayName": { "type": "string", "description": "User's display name" },
+        "photoURL": { "type": "string", "description": "URL of user avatar" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of account creation" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of last profile update" }
+      },
+      "required": ["uid", "email"]
+    },
+    "SavedScheme": {
+      "title": "SavedScheme",
+      "description": "Government schemes bookmarked by the user for reference or application",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier of the saved scheme" },
+        "title": { "type": "string", "description": "Official title of the scheme" },
+        "category": { "type": "string", "description": "Scheme sector/category (e.g., Agriculture, Education)" },
+        "state": { "type": "string", "description": "State or Central scope" },
+        "benefitSummary": { "type": "string", "description": "Brief description of monetary or social benefits" },
+        "savedAt": { "type": "string", "description": "ISO timestamp when the scheme was bookmarked" }
+      },
+      "required": ["id", "title"]
+    },
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "Saved consultation history between citizen and SevaBot AI",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Session identifier" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "title": { "type": "string", "description": "Topic or title of consultation" },
+        "lastUpdated": { "type": "string", "description": "ISO timestamp of last message" },
+        "messageCount": { "type": "number", "description": "Total messages in conversation" }
+      },
+      "required": ["id", "userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Citizen profile document"
+    },
+    "/users/{userId}/savedSchemes/{schemeId}": {
+      "schema": "SavedScheme",
+      "description": "Bookmarked welfare schemes for the user"
+    },
+    "/users/{userId}/chatSessions/{sessionId}": {
+      "schema": "ChatSession",
+      "description": "Stored chat consultation history for the user"
+    }
+  }
+}

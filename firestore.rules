@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Health / connection test doc
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Citizen profile document
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      // Bookmarked and saved schemes
+      match /savedSchemes/{schemeId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Stored consultation sessions
+      match /chatSessions/{sessionId} {
+        allow read, write: if isOwner(userId);
+
+        match /messages/{messageId} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+    }
+  }
+}
