@@ -15,7 +15,7 @@ import {
   Gauge, 
   Activity
 } from 'lucide-react';
-import { generateSpeech } from '../services/gemini';
+import { generateSpeech, speakWithBrowser, stopBrowserSpeech, toSpeechLang } from '../services/gemini';
 
 export interface VoiceOption {
   id: string;
@@ -85,6 +85,7 @@ export default function VoiceSettingsModal({
   });
 
   const stopPreviewAudio = () => {
+    stopBrowserSpeech();
     if (previewSourceRef.current) {
       try {
         previewSourceRef.current.stop();
@@ -107,7 +108,16 @@ export default function VoiceSettingsModal({
 
       const base64Audio = await generateSpeech(sampleText, targetVoiceName);
       if (!base64Audio) {
-        setIsPreviewLoading(false);
+        // Server voice unavailable: preview with the browser's speech synthesis
+        setIsPlayingPreview(true);
+        speakWithBrowser(sampleText, {
+          lang: toSpeechLang(selectedLang?.code),
+          voiceName: targetVoiceName,
+          rate: settings.speed,
+          pitch: settings.pitch,
+          volume: settings.volume,
+          onEnd: () => setIsPlayingPreview(false),
+        });
         return;
       }
 
