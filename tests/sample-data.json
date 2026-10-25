@@ -1,0 +1,232 @@
+{
+  "project": "SevaBot AI",
+  "version": "1.0.0",
+  "description": "Comprehensive sample datasets for testing citizen welfare discovery, multi-tier Gemini chatbot, audio transcription, grounding, and Firestore persistence.",
+  "citizenProfiles": [
+    {
+      "id": "CITIZEN-001",
+      "name": "Ramesh Kumar Patel",
+      "gender": "Male",
+      "age": 42,
+      "state": "Gujarat",
+      "district": "Anand",
+      "residenceType": "Rural",
+      "casteCategory": "OBC",
+      "minorityStatus": false,
+      "differentlyAbled": false,
+      "occupation": "Farmer / Agriculture",
+      "landHoldingAcres": 2.5,
+      "isBpl": true,
+      "annualFamilyIncomeInr": 85000,
+      "expectedEligibleSchemes": [
+        "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+        "PM Fasal Bima Yojana",
+        "Kisan Credit Card (KCC)",
+        "Ayushman Bharat - PM-JAY",
+        "PM Awas Yojana (Gramin)"
+      ]
+    },
+    {
+      "id": "CITIZEN-002",
+      "name": "Priya Lakshmi",
+      "gender": "Female",
+      "age": 22,
+      "state": "Tamil Nadu",
+      "district": "Coimbatore",
+      "residenceType": "Urban",
+      "casteCategory": "SC",
+      "minorityStatus": false,
+      "differentlyAbled": false,
+      "occupation": "Student / Higher Education",
+      "educationLevel": "Undergraduate B.Tech",
+      "isBpl": true,
+      "annualFamilyIncomeInr": 120000,
+      "expectedEligibleSchemes": [
+        "Post-Matric Scholarship for SC Students",
+        "Moovalur Ramamirtham Ammaiyar Higher Education Assurance Scheme (Pudhumai Penn)",
+        "Central Sector Scheme of Scholarships for College and University Students",
+        "National Overseas Scholarship"
+      ]
+    },
+    {
+      "id": "CITIZEN-003",
+      "name": "Fatima Begum",
+      "gender": "Female",
+      "age": 34,
+      "state": "Uttar Pradesh",
+      "district": "Lucknow",
+      "residenceType": "Semi-Urban",
+      "casteCategory": "General",
+      "minorityStatus": true,
+      "minorityCommunity": "Muslim",
+      "differentlyAbled": false,
+      "occupation": "Self-Employed / Artisan / Weaver",
+      "isBpl": true,
+      "annualFamilyIncomeInr": 96000,
+      "expectedEligibleSchemes": [
+        "PM Vishwakarma Scheme",
+        "USTTAD (Upgrading the Skills and Training in Traditional Arts/Crafts for Development)",
+        "Nai Roshni - Leadership Development of Minority Women",
+        "PM Ujjwala Yojana 2.0"
+      ]
+    },
+    {
+      "id": "CITIZEN-004",
+      "name": "Anil Mahadevrao Shinde",
+      "gender": "Male",
+      "age": 67,
+      "state": "Maharashtra",
+      "district": "Nashik",
+      "residenceType": "Rural",
+      "casteCategory": "General",
+      "minorityStatus": false,
+      "differentlyAbled": true,
+      "disabilityPercentage": 60,
+      "occupation": "Senior Citizen / Retired Unorganized Worker",
+      "isBpl": true,
+      "annualFamilyIncomeInr": 48000,
+      "expectedEligibleSchemes": [
+        "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
+        "Indira Gandhi National Disability Pension Scheme (IGNDPS)",
+        "Rashtriya Vayoshri Yojana (RVY)",
+        "Sanjay Gandhi Niradhar Anudan Yojana (Maharashtra)"
+      ]
+    },
+    {
+      "id": "CITIZEN-005",
+      "name": "Aakash Singh",
+      "gender": "Male",
+      "age": 27,
+      "state": "Karnataka",
+      "district": "Bengaluru Urban",
+      "residenceType": "Urban",
+      "casteCategory": "ST",
+      "minorityStatus": false,
+      "differentlyAbled": false,
+      "occupation": "Unemployed Youth / Aspiring Entrepreneur",
+      "isBpl": false,
+      "annualFamilyIncomeInr": 250000,
+      "expectedEligibleSchemes": [
+        "PM Employment Generation Programme (PMEGP)",
+        "Stand-Up India Scheme (for SC/ST and Women Entrepreneurs)",
+        "Pradhan Mantri Mudra Yojana (PMMY)",
+        "Startup India Seed Fund Scheme"
+      ]
+    }
+  ],
+  "sampleSchemes": [
+    {
+      "id": "pm-kisan",
+      "title": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+      "ministry": "Ministry of Agriculture and Farmers Welfare",
+      "category": "Agriculture, Rural & Environment",
+      "beneficiaryType": "Small & Marginal Landholding Farmers",
+      "state": "All India",
+      "financialAssistance": "Rs. 6,000 per year directly transferred to bank account in 3 installments of Rs. 2,000 each",
+      "eligibility": "All landholding farmer family names registered in state/UT land records, excluding institutional landholders, income-tax payers, and serving/retired govt employees.",
+      "documentsRequired": [
+        "Aadhaar Card",
+        "Landholding Documentation (Khasra/Khatauni)",
+        "Aadhaar-seeded Bank Account Passbook",
+        "Active Mobile Number"
+      ],
+      "officialPortalUrl": "https://pmkisan.gov.in"
+    },
+    {
+      "id": "ayushman-bharat-pmjay",
+      "title": "Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana (PM-JAY)",
+      "ministry": "Ministry of Health and Family Welfare",
+      "category": "Health & Wellness",
+      "beneficiaryType": "Bottom 40% vulnerable and poor families identified by SECC 2011 + Senior Citizens aged 70+",
+      "state": "All India",
+      "financialAssistance": "Health insurance cover of up to Rs. 5 Lakh per family per year for secondary and tertiary care hospitalization across empanelled hospitals",
+      "eligibility": "Households identified under rural & urban SECC 2011 deprivation criteria, RSBY beneficiaries, and all senior citizens aged 70 and above irrespective of income (under 2024 expansion).",
+      "documentsRequired": [
+        "Aadhaar Card",
+        "Ration Card / PMAM Family ID",
+        "Age proof (for senior citizen 70+ cover)"
+      ],
+      "officialPortalUrl": "https://pmjay.gov.in"
+    },
+    {
+      "id": "sukanya-samriddhi-yojana",
+      "title": "Sukanya Samriddhi Yojana (Beti Bachao Beti Padhao)",
+      "ministry": "Ministry of Finance",
+      "category": "Banking, Financial Services and Insurance",
+      "beneficiaryType": "Girl Children under 10 years of age",
+      "state": "All India",
+      "financialAssistance": "High-interest sovereign savings scheme (8.2% p.a.), exempt under Section 80C, designed for higher education and marriage of female child",
+      "eligibility": "Can be opened by biological parents or legal guardians for a girl child from her birth until she reaches 10 years of age (maximum 2 accounts per family).",
+      "documentsRequired": [
+        "Birth Certificate of Girl Child",
+        "Aadhaar & PAN of Parent/Guardian",
+        "Address Proof",
+        "Passport size photographs"
+      ],
+      "officialPortalUrl": "https://www.india.gov.in/sukanya-samriddhi-yojana"
+    },
+    {
+      "id": "pm-vishwakarma",
+      "title": "PM Vishwakarma Kaushal Samman",
+      "ministry": "Ministry of Micro, Small and Medium Enterprises",
+      "category": "Business & Entrepreneurship",
+      "beneficiaryType": "Traditional artisans and craftspeople across 18 specified trades",
+      "state": "All India",
+      "financialAssistance": "PM Vishwakarma Certificate & ID, Basic/Advanced training with Rs. 500/day stipend, Rs. 15,000 toolkit grant, and collateral-free enterprise loans up to Rs. 3 Lakh at 5% interest",
+      "eligibility": "A traditional artisan or craftsperson working with hands and tools in one of 18 trades (Carpenter, Blacksmith, Sculptor, Cobbler, Tailor, Weaver, etc.), minimum age 18 years, only one member per family.",
+      "documentsRequired": [
+        "Aadhaar Card",
+        "Mobile Number linked with Aadhaar",
+        "Bank Account Details",
+        "Trade Self-Declaration"
+      ],
+      "officialPortalUrl": "https://pmvishwakarma.gov.in"
+    }
+  ],
+  "sampleDialogues": [
+    {
+      "scenario": "Farmer seeking drought relief and crop subsidy",
+      "modelTier": "gemini-4-argon",
+      "groundingTool": "search",
+      "language": "Hindi",
+      "messages": [
+        {
+          "role": "user",
+          "content": "मेरी कपास की फसल बारिश न होने के कारण खराब हो गई है। क्या मुझे कोई सरकारी मुआवजा या फसल बीमा मिल सकता है? मैं महाराष्ट्र के विदर्भ क्षेत्र से हूँ।"
+        },
+        {
+          "role": "model",
+          "content": "विदर्भ, महाराष्ट्र के किसानों के लिए प्रधानमंत्री फसल बीमा योजना (PMFBY) और राज्य आपदा राहत कोष (SDRF) के तहत मुआवजा उपलब्ध है:\n\n1. **प्रधानमंत्री फसल बीमा योजना (PMFBY)**:\n   - **दावा अवधि**: फसल नुकसान के 72 घंटों के भीतर 'Crop Insurance App' या टोल-फ्री नंबर 1800-180-1551 पर सूचना दें।\n   - **मुआवजा**: स्थानीय आपदाओं एवं सुखाड़ के कारण उपज में कमी का 100% तक बीमा राशि।\n\n2. **महाराष्ट्र सरकार ई-पंचनामा प्रणाली**:\n   - स्थानीय तलाठी या कृषि सहायक से मिलकर 'ई-पंचनामा' करवाएं।\n   - राज्य सरकार सूखाग्रस्त मंडलों के लिए डीबीटी (DBT) के माध्यम से सीधी वित्तीय सहायता प्रदान करती है।\n\n3. **निकटतम सहायता केंद्र**:\n   - आप अपने ग्राम पंचायत के CSC (Common Service Center) या कृषि विज्ञान केंद्र पर संपर्क कर सकते हैं।"
+        }
+      ]
+    },
+    {
+      "scenario": "Citizen locating local government service centers",
+      "modelTier": "gemini-3.8-flash",
+      "groundingTool": "maps",
+      "language": "English",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Where can I find the nearest Seva Kendra or CSC Center in Coimbatore to apply for a Ration Card?"
+        },
+        {
+          "role": "model",
+          "content": "In Coimbatore, Tamil Nadu, you can access e-Sevai / CSC Centers at the following public administrative locations:\n\n1. **Coimbatore District Collectorate e-Sevai Kendra** - State Bank Road, Gopalapuram, Coimbatore.\n2. **Taluk Office e-Sevai Center (Coimbatore South)** - Huzur Road, Race Course.\n3. **TNeGA Common Service Center** - Gandhipuram Bus Stand Complex.\n\n**Working Hours**: 9:30 AM to 5:30 PM (Monday through Saturday).\n**Required for Ration Card**: Smart Aadhaar card for all family members, LPG gas connection bill, electricity bill/rental agreement for residential proof."
+        }
+      ]
+    }
+  ],
+  "groundingTestQueries": {
+    "searchGrounding": [
+      "Latest eligibility circular for PM Surya Ghar Muft Bijli Yojana rooftop solar subsidy in 2026",
+      "Ladli Behna Yojana installment dates and eligibility status criteria",
+      "Documents required for Ayushman Bharat Senior Citizen Card (70+ years) on Beneficiary Portal"
+    ],
+    "mapsGrounding": [
+      "Find nearest CSC Common Service Center in Patna near Gandhi Maidan",
+      "Where is the District Social Welfare Office in Hyderabad for disability pension verification?",
+      "Nearest Grama One / Bangalore One citizen service kiosk in Indiranagar"
+    ]
+  }
+}
