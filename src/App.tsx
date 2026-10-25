@@ -53,6 +53,9 @@ import {
   connectLive, 
   translateText, 
   transcribeAudio, 
+  speakWithBrowser,
+  stopBrowserSpeech,
+  toSpeechLang,
   ChatModelTier, 
   GroundingToolType 
 } from './services/gemini';
@@ -435,7 +438,7 @@ export default function App() {
               }
             } catch (err: any) {
               console.error("Transcription error:", err);
-              setPermissionError("Audio transcription failed with gemini-3.5-transcribe. Please try again.");
+              setPermissionError("Audio transcription failed. Please try again.");
             } finally {
               setIsTranscribing(false);
             }
@@ -470,8 +473,17 @@ export default function App() {
   };
 
   const playAudio = async (text: string, messageIndex: number) => {
+    const synth = typeof window !== 'undefined' ? window.speechSynthesis : undefined;
     if (isSpeaking && playingMessageIndex === messageIndex) {
-      if (standardAudioContextRef.current) {
+      if (!currentSourceRef.current && synth?.speaking) {
+        if (isAudioPaused) {
+          synth.resume();
+          setIsAudioPaused(false);
+        } else {
+          synth.pause();
+          setIsAudioPaused(true);
+        }
+      } else if (standardAudioContextRef.current) {
         if (isAudioPaused) {
           await standardAudioContextRef.current.resume();
           setIsAudioPaused(false);
@@ -486,6 +498,7 @@ export default function App() {
     if (isSpeaking) {
       currentSourceRef.current?.stop();
       currentSourceRef.current = null;
+      stopBrowserSpeech();
       setIsSpeaking(false);
       setIsGeneratingAudio(false);
       setIsAudioPaused(false);
@@ -566,8 +579,19 @@ export default function App() {
         currentSourceRef.current = source;
         source.start();
       } else {
-        setIsSpeaking(false);
-        setPlayingMessageIndex(null);
+        // Server voice unavailable: use the browser's speech synthesis
+        speakWithBrowser(text, {
+          lang: toSpeechLang(selectedLang.code),
+          voiceName: voiceSettings.voiceName,
+          rate: audioPlaybackRate,
+          pitch: voiceSettings.pitch,
+          volume: audioVolume,
+          onEnd: () => {
+            setIsSpeaking(false);
+            setPlayingMessageIndex(null);
+            setIsAudioPaused(false);
+          },
+        });
       }
     } catch (error) {
       console.error("Error playing audio:", error);
@@ -594,6 +618,7 @@ export default function App() {
 
   const refreshChat = () => {
     if (isSpeaking) {
+      stopBrowserSpeech();
       currentSourceRef.current?.stop();
       currentSourceRef.current = null;
       setIsSpeaking(false);
@@ -757,7 +782,7 @@ export default function App() {
           console.error("Live session error:", err);
           stopLiveSession();
         }
-      }, voiceSettings.voiceName);
+      }, voiceSettings.voiceName, selectedLang.code, selectedLang.name);
 
       liveSessionRef.current = session;
     } catch (err) {
@@ -1612,6 +1637,7 @@ export default function App() {
                       onClick={() => {
                         currentSourceRef.current?.stop();
                         currentSourceRef.current = null;
+                        stopBrowserSpeech();
                         setIsSpeaking(false);
                         setPlayingMessageIndex(null);
                         setIsAudioPaused(false);
